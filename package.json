@@ -1,0 +1,42 @@
+{
+  "name": "initify",
+  "version": "0.0.1",
+  "description": "The easy way to start open source projects.",
+  "homepage": "https://cjpatoilo.com/initify",
+  "repository": "cjpatoilo/initify",
+  "license": "MIT",
+  "author": "CJ Patoilo <cjpatoilo@gmail.com>",
+  "bin": "bin/cli.js",
+  "keywords": [
+    "boilerplate",
+    "opensource",
+    "repository",
+    "github"
+  ],
+  "ignore": [
+    ".appveyor.yml",
+    ".editorconfig",
+    ".github",
+    ".gitignore",
+    ".travis.yml",
+    "package.json",
+    "src",
+    "test"
+  ],
+  "dependencies": {
+    "commander": "^2.9.0"
+  },
+  "devDependencies": {
+    "ava": "^0.17.0",
+    "coveralls": "^2.11.15",
+    "nyc": "^10.0.0",
+    "standard": "^8.6.0"
+  },
+  "engines": {
+    "node": "^7.0.0"
+  },
+  "scripts": {
+    "test": "standard && nyc ava",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+  }
+}
