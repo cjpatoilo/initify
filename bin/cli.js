@@ -23,8 +23,8 @@ cli
   .option('--no-template', 'Disallow .github templates')
   .option('--no-editor', 'Disallow .editorconfig')
   .option('--no-readme', 'Disallow readme.md')
-  .option('--no-license', 'Disallow readme.md')
-  .option('--no-ignore', 'Disallow readme.md')
+  .option('--no-license', 'Disallow license')
+  .option('--no-ignore', 'Disallow .gitignore')
   .parse(process.argv)
 
 /**
@@ -49,8 +49,8 @@ const info = `
     --no-template           Disallow .github templates
     --no-editor             Disallow .editorconfig
     --no-readme             Disallow readme.md
-    --no-license            Disallow readme.md
-    --no-ignore             Disallow readme.md
+    --no-license            Disallow license
+    --no-ignore             Disallow .gitignore
 
   Examples:
 
