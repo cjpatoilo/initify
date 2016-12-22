@@ -51,8 +51,8 @@ $ initify --help
     --no-template           Disallow .github templates
     --no-editor             Disallow .editorconfig
     --no-readme             Disallow readme.md
-    --no-license            Disallow readme.md
-    --no-ignore             Disallow readme.md
+    --no-license            Disallow license
+    --no-ignore             Disallow .gitignore
 
   Examples:
 
