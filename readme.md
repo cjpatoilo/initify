@@ -3,7 +3,7 @@
 > The easy way to start open source projects.
 
 [![Travis Status](https://travis-ci.org/cjpatoilo/initify.svg?branch=master)](https://travis-ci.org/cjpatoilo/initify?branch=master)
-[![AppVeyor Status](https://ci.appveyor.com/api/projects/status/4yv09um6vsr183j0?svg=true)](https://ci.appveyor.com/project/cjpatoilo/initify)
+[![AppVeyor Status](https://ci.appveyor.com/api/projects/status/yd5ohn9syy91fk7l?svg=true)](https://ci.appveyor.com/project/cjpatoilo/initify)
 [![Codacy Status](https://img.shields.io/codacy/grade/5009698540f040ec994a71fc84a4d675/master.svg)](https://www.codacy.com/app/cjpatoilo/initify/dashboard)
 [![Dependencies Status](https://david-dm.org/cjpatoilo/initify/status.svg)](https://david-dm.org/cjpatoilo/initify)
 [![Version Status](https://badge.fury.io/js/initify.svg)](https://www.npmjs.com/package/initify)
