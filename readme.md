@@ -34,35 +34,32 @@ $ yarn add initify
 ## Usage
 
 ```
-$ initify --help
+	Usage:
 
-  Usage:
+		$ initify <directory> [<options>]
 
-    $ initify <directory> [<options>]
+	Options:
 
-  Options:
+		-h, --help              Display help information
+		-v, --version           Output Initify version
+		-l, --license           Set license
+		-i, --ignore            Set .gitignore
+		-c, --ci                Set continue
+		--no-template           Disallow .github templates
+		--no-editor             Disallow .editorconfig
+		--no-readme             Disallow readme.md
+		--no-license            Disallow license
+		--no-ignore             Disallow .gitignore
 
-    -h, --help              Display help information
-    -v, --version           Output Initify version
-    -l, --license           Set license
-    -i, --ignore            Set .gitignore
-    -c, --ci                Set continue
-    --no-template           Disallow .github templates
-    --no-editor             Disallow .editorconfig
-    --no-readme             Disallow readme.md
-    --no-license            Disallow license
-    --no-ignore             Disallow .gitignore
+	Examples:
 
-  Examples:
+		$ initify my-project
+		$ initify sample --ignore android
+		$ initify www --license apache-2.0
 
-    $ initify myApp
-    $ initify sample --ignore android
-    $ initify www --license apache-2.0
+	Default when no arguments:
 
-  Default when no arguments:
-
-    $ initify <directory> --license mit --ignore node --ci travis
-
+		$ initify <directory> --license mit --ignore node --ci travis
 ```
 
 
