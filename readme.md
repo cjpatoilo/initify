@@ -1,4 +1,4 @@
-<a align="center" href="http://cjpatoilo.com/initify"><img width="100%" src="http://cjpatoilo.com/initify/images/thumbnail.png" alt="The easy way to start open source projects."></a>
+<a align="center" href="https://cjpatoilo.com/initify"><img width="100%" src="https://cjpatoilo.com/initify/images/thumbnail.png" alt="The easy way to start open source projects."></a>
 
 > The easy way to start open source projects.
 
@@ -42,14 +42,15 @@ $ yarn add initify
 
 		-h, --help              Display help information
 		-v, --version           Output Initify version
-		-l, --license           Set license
-		-i, --ignore            Set .gitignore
-		-c, --ci                Set continue
-		--no-template           Disallow .github templates
-		--no-editor             Disallow .editorconfig
-		--no-readme             Disallow readme.md
+		-l, --license           Get license
+		-i, --ignore            Get .gitignore
+		-c, --ci                Get continuous integration
 		--no-license            Disallow license
 		--no-ignore             Disallow .gitignore
+		--no-ci                 Disallow continuous integration
+		--no-template           Disallow Github templates
+		--no-editor             Disallow .editorconfig
+		--no-readme             Disallow readme.md
 
 	Examples:
 
@@ -59,7 +60,7 @@ $ yarn add initify
 
 	Default when no arguments:
 
-		$ initify <directory> --license mit --ignore node --ci travis
+		$ initify <directory> --license=mit --ignore=node --ci=travis,appvey
 ```
 
 
@@ -70,4 +71,4 @@ Want to contribute? Follow these [recommendations](https://github.com/cjpatoilo/
 
 ## License
 
-Designed with ♥ by [CJ Patoilo](http://twitter.com/cjpatoilo). Licensed under the [MIT License](http://cjpatoilo.mit-license.org).
+Designed with ♥ by [CJ Patoilo](https://twitter.com/cjpatoilo). Licensed under the [MIT License](http://cjpatoilo.mit-license.org).
