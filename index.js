@@ -29,13 +29,13 @@ Options:
 
 Examples:
 
-  $ initify my-project
-  $ initify sample --ignore macos,node,grunt,test
-  $ initify www --license apache-2.0
+  $ initify my-app
+  $ initify my-app --ignore macos,node,grunt,test
+  $ initify my-app --license apache-2.0
 
 Default settings when no arguments:
 
-	$ initify <directory> --license=mit --ignore=node --ci=travis,appvey
+  $ initify <directory> --license mit --ignore node --ci travis,appveyor
 `
 
 /**
