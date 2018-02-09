@@ -54,13 +54,13 @@ $ yarn add initify
 
 	Examples:
 
-		$ initify my-project
-		$ initify sample --ignore android
-		$ initify www --license apache-2.0
+		$ initify my-app
+		$ initify my-app --ignore macos,node,grunt,test
+		$ initify my-app --license apache-2.0
 
-	Default when no arguments:
+	Default settings when no arguments:
 
-		$ initify <directory> --license=mit --ignore=node --ci=travis,appvey
+		$ initify <directory> --license mit --ignore node --ci travis,appveyor
 ```
 
 
