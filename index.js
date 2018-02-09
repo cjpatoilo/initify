@@ -1,16 +1,13 @@
 #!/usr/bin/env node
-const child = require('child_process')
-const fs = require('fs')
-const https = require('https')
+const { existsSync } = require('fs')
+const { get } = require('https')
+const { exec } = require('child_process')
+const { outputFile } = require('fs-extra')
 const rasper = require('rasper')
 const { version } = require('./package.json')
 
 const options = process.argv[0].match(/node/i) ? rasper(process.argv.slice(2)) : rasper()
 const directory = options._[0]
-const hostname = 'raw.githubusercontent.com'
-const path = '/cjpatoilo/initify/master/src'
-const port = 443
-const method = 'GET'
 const info = `
 Usage:
 
@@ -33,7 +30,7 @@ Options:
 Examples:
 
   $ initify my-project
-  $ initify sample --ignore android
+  $ initify sample --ignore macos,node,grunt,test
   $ initify www --license apache-2.0
 
 Default settings when no arguments:
@@ -42,15 +39,7 @@ Default settings when no arguments:
 `
 
 /**
- * Without directory or help
- */
-if (options.help || options.h || !directory) {
-	console.log(info)
-	process.exit(1)
-}
-
-/**
- * Version
+ * version
  */
 if (options.version) {
 	console.log(`v${version}`)
@@ -58,61 +47,94 @@ if (options.version) {
 }
 
 /**
- * Create directory
+ * help
  */
-child.exec(`mkdir ${directory}`)
-
-/**
- * Create readme.md
- */
-if (!options.noreadme) Request(`/readme/readme`, `readme.md`)
-
-/**
- * Create license
- */
-if (options.license) Request(`/licenses/${options.license}`, `license`)
-else if (!options.nolicense) Request(`/licenses/mit`, `license`)
-
-/**
- * Create .gitignore
- */
-if (options.ignore) Request(`www.gitignore.io/api/${options.ignore}`, `.gitignore`)
-else if (!options.noignore) Request(`www.gitignore.io/api/node`, `.gitignore`)
-
-/**
- * Create .travis.yml
- */
-if (options.ci) Request(`/ci/${options.ci}`, `.${options.ci}.yml`)
-
-if (!options.noci) {
-	Promise.all([
-		Request(`/ci/appveyor`, `.appveyor.yml`),
-		Request(`/ci/travis`, `.travis.yml`)
-	])
+if (options.help || options.h) {
+	console.log(info)
+	process.exit(1)
 }
 
 /**
- * Create GitHub Template
+ * has directory
+ */
+// if (existsSync(directory)) {
+// 	console.error('[error] Directory exists!')
+// 	process.exit(2)
+// }
+
+/**
+ * No directory
+ */
+if (!directory) {
+	console.error('[error] Directory is required!')
+	process.exit(2)
+}
+
+/**
+ * readme.md
+ */
+if (!options.noreadme) request('misc/readme', 'readme.md')
+
+/**
+ * license
+ */
+if (options.l || options.license) request(`license/${options.license}`, 'license')
+else if (!options.nolicense) request('license/mit', 'license')
+
+/**
+ * .gitignore
+ */
+if (options.i || options.ignore) request(options.ignore, '.gitignore')
+else if (!options.noignore) request('node', '.gitignore')
+
+/**
+ * continus integration
+ */
+if (options.c || options.ci) request(`ci/${options.ci}`, `.${options.ci}.yml`)
+else if (!options.noci) {
+	request('ci/appveyor', '.appveyor.yml')
+	request('ci/travis', '.travis.yml')
+}
+
+/**
+ * github template
  */
 if (!options.notemplate) {
-	const url = `${directory}/.github`
-	Promise.all([
-		child.exec(`mkdir ${url}`),
-		Request(`${directory}/.github`, `contributing.md`),
-		Request(`${directory}/.github`, `issue_template.md`),
-		Request(`${directory}/.github`, `pull_request_temaplte.md`)
-	])
+	request('github/contributing', '.github/contributing.md')
+	request('github/issue_template', '.github/issue_template.md')
+	request('github/pull_request_template', '.github/pull_request_template.md')
 }
 
 /**
- * Create .editorconfig
+ * .editorconfig
  */
-if (!options.editor) Request(`/misc/editorconfig`, `.editorconfig`)
+if (!options.noeditor) request('misc/editorconfig', '.editorconfig')
 
-process.exit(1)
+/**
+ * package.json
+ */
+exec(`cd ${directory} && npm init -y`)
 
-function Request (url, file) {
-	https
-		.get({ hostname, path, port, method }, response => response.on('data', response => fs.writeFile(`${directory}/${file}`, response)))
-		.on('error', error => console.error(error))
+/**
+ * functions
+ */
+function request (url, file) {
+	console.log(`[info] Request ${file}`)
+
+	get(normalize(url, file), response => {
+		response.on('data', data => write(`${directory}/${file}`, data))
+	})
+}
+
+function normalize (url, file) {
+	const hostname = (file === '.gitignore') ? 'www.gitignore.io' : 'raw.githubusercontent.com'
+	const path = (file === '.gitignore') ? `/api/${url}` : `/cjpatoilo/initify/v${version}/src/${url}`
+
+	return { hostname, path }
+}
+
+function write (file, data) {
+	outputFile(file, data, error => {
+		error ? console.error(`[error] Error ${file}!`) : console.log(`[info] Creating ${file}`)
+	})
 }
