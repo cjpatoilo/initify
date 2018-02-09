@@ -2,9 +2,10 @@
 const { existsSync } = require('fs')
 const { get } = require('https')
 const { exec } = require('child_process')
-const { outputFile } = require('fs-extra')
+const { outputFile, readJson, writeJson } = require('fs-extra')
 const rasper = require('rasper')
 const { version } = require('./package.json')
+const { error, log } = console
 
 const options = process.argv[0].match(/node/i) ? rasper(process.argv.slice(2)) : rasper()
 const directory = options._[0]
@@ -42,7 +43,7 @@ Default settings when no arguments:
  * version
  */
 if (options.version) {
-	console.log(`v${version}`)
+	log(`v${version}`)
 	process.exit(1)
 }
 
@@ -50,25 +51,40 @@ if (options.version) {
  * help
  */
 if (options.help || options.h) {
-	console.log(info)
+	log(info)
 	process.exit(1)
 }
 
 /**
  * has directory
  */
-// if (existsSync(directory)) {
-// 	console.error('[error] Directory exists!')
-// 	process.exit(2)
-// }
+if (existsSync(directory)) {
+	error('[error] Directory exists')
+	process.exit(2)
+}
 
 /**
  * No directory
  */
 if (!directory) {
-	console.error('[error] Directory is required!')
+	error('[error] Directory is required')
 	process.exit(2)
 }
+
+/**
+ * package.json
+ */
+exec(`mkdir ${directory} && cd ${directory} && npm init -y`, err => {
+	const file = `${directory}/package.json`
+	err ? error(`[error] Error ${file}`) : readJson(file, createPkg)
+})
+
+/**
+ * index.js
+ */
+exec(`touch ${directory}/index.js`, err => {
+	err ? error(`[error] Error ${directory}/index.js`) : log(`[info] Creating ${directory}/index.js`)
+})
 
 /**
  * readme.md
@@ -111,19 +127,18 @@ if (!options.notemplate) {
 if (!options.noeditor) request('misc/editorconfig', '.editorconfig')
 
 /**
- * package.json
- */
-exec(`cd ${directory} && npm init -y`)
-
-/**
  * functions
  */
-function request (url, file) {
-	console.log(`[info] Request ${file}`)
+function createPkg (error, data) {
+	const file = `${directory}/package.json`
+	data.version = '0.0.0'
+	data.license = (options.license || options.l) ? options.license.toUpperCase() : 'MIT'
 
-	get(normalize(url, file), response => {
-		response.on('data', data => write(`${directory}/${file}`, data))
-	})
+	writeJson(file, data, { spaces: '\t' }, err => err ? error(`[error] Error ${file}`) : log(`[info] Creating ${file}`))
+}
+
+function request (url, file) {
+	get(normalize(url, file), res => res.on('data', data => write(`${directory}/${file}`, data)))
 }
 
 function normalize (url, file) {
@@ -134,7 +149,5 @@ function normalize (url, file) {
 }
 
 function write (file, data) {
-	outputFile(file, data, error => {
-		error ? console.error(`[error] Error ${file}!`) : console.log(`[info] Creating ${file}`)
-	})
+	outputFile(file, data, err => err ? error(`[error] Error ${file}`) : log(`[info] Creating ${file}`))
 }
