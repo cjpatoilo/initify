@@ -1,4 +1,4 @@
-[name]
+[directory]
 
 > [description]
 
@@ -13,19 +13,19 @@
 **Install with npm**
 
 ```sh
-$ npm install [name]
+$ npm install [directory]
 ```
 
 **Install with Yarn**
 
 ```sh
-$ yarn add [name]
+$ yarn add [directory]
 ```
 
 Run with npx (without installing!):
 
 ```sh
-npx [name]
+npx [directory]
 ```
 
 ## Usage
