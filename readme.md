@@ -21,13 +21,19 @@ Initify is a CLI made in Node.js to start Open Source projects – easy as cake!
 **Install with npm**
 
 ```sh
-$ npm install initify --global
+$ npm install initify
 ```
 
 **Install with Yarn**
 
 ```sh
 $ yarn add initify
+```
+
+**Run with npx (without installing!)**
+
+```sh
+$ npx initify
 ```
 
 

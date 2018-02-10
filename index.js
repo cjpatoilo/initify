@@ -11,10 +11,9 @@ const { error, log } = console
 if (require.main === module) initify()
 
 async function initify () {
-	const user = await getUser()
-	const year = (new Date()).getFullYear()
 	const options = process.argv[0].match(/node/i) ? rasper(process.argv.slice(2)) : rasper()
 	const directory = options._[0]
+	const config = await getConfig(directory)
 	const info = `
 	Usage:
 
@@ -112,7 +111,7 @@ async function initify () {
 		const file = `${directory}/package.json`
 		data.version = '0.0.0'
 		data.license = (options.license || options.l) ? options.license.toUpperCase() : 'MIT'
-		data.author = user.name + ' (' + user.email + ')'
+		data.author = config.fullname + ' (' + config.email + ')'
 
 		writeJson(file, data, { spaces: '\t' }, err => err ? error(`[error] Error ${file}`) : log(`[info] Creating ${file}`))
 	}
@@ -137,15 +136,21 @@ async function initify () {
 	function update (data) {
 		return data
 			.toString('utf8')
-			.replace('[year]', year)
-			.replace('[fullname]', user.name)
-			.replace('[email]', user.email)
+			.replace('[year]', config.year)
+			.replace('[fullname]', config.fullname)
+			.replace('[email]', config.email)
+			.replace('[description]', config.description)
 	}
 
-	function getUser () {
+	function getConfig (directory) {
+		const defaultName = 'Author'
+		const defaultEmail = 'email@author.com'
+		const description = 'Lorem ipsum'
+		const year = (new Date()).getFullYear()
+
 		return new Promise(resolve => {
-			gitconfig.get().then(({ user }) => {
-				resolve(user || { name: 'Author', email: 'email@author.com' })
+			gitconfig.get().then(({ user: { email, name } }) => {
+				resolve({ directory, year, description, fullname: name || defaultName, email: email || defaultEmail })
 			})
 		})
 	}

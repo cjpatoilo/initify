@@ -1,3 +1,43 @@
-# Lorem ipsum
+[name]
 
-> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+> [description]
+
+
+## Why it's awesome
+
+[description]
+
+
+## Install
+
+**Install with npm**
+
+```sh
+$ npm install [name]
+```
+
+**Install with Yarn**
+
+```sh
+$ yarn add [name]
+```
+
+Run with npx (without installing!):
+
+```sh
+npx [name]
+```
+
+## Usage
+
+Lorem ipsum
+
+
+## Contributing
+
+Want to contribute? Follow these [recommendations](contributing.md).
+
+
+## License
+
+Designed with ♥ by [[fullname]](#). Licensed under the MIT License.
