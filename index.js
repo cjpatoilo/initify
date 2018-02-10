@@ -42,7 +42,7 @@ Default settings when no arguments:
 /**
  * version
  */
-if (options.version) {
+if (options.v || options.version) {
 	log(`v${version}`)
 	process.exit(1)
 }
@@ -50,7 +50,7 @@ if (options.version) {
 /**
  * help
  */
-if (options.help || options.h) {
+if (options.h || options.help) {
 	log(info)
 	process.exit(1)
 }
