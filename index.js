@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const { existsSync, readFile } = require('fs')
+const { existsSync } = require('fs')
 const { get } = require('https')
 const { exec } = require('child_process')
 const { outputFile, readJson, writeJson } = require('fs-extra')
@@ -109,13 +109,12 @@ async function initify () {
 	if (!options.noeditor) request('misc/editorconfig', '.editorconfig')
 
 	function create (error, data) {
+		const file = `${directory}/package.json`
 		data.version = '0.0.0'
 		data.license = (options.license || options.l) ? options.license.toUpperCase() : 'MIT'
 		data.author = user.name + ' (' + user.email + ')'
 
-		writeJson(file, data, { spaces: '\t' }, err => err
-			? error(`[error] Error ${directory}/package.json`)
-			: log(`[info] Creating ${directory}/package.json`))
+		writeJson(file, data, { spaces: '\t' }, err => err ? error(`[error] Error ${file}`) : log(`[info] Creating ${file}`))
 	}
 
 	function request (url, file) {
@@ -132,7 +131,7 @@ async function initify () {
 	function write (file, data) {
 		outputFile(file, update(data))
 			.then(() => log(`[info] Creating ${file}`))
-			.catch(err => error(`[error] Error ${file}`))
+			.catch(() => error(`[error] Error ${file}`))
 	}
 
 	function update (data) {
@@ -146,7 +145,7 @@ async function initify () {
 	function getUser () {
 		return new Promise(resolve => {
 			gitconfig.get().then(({ user }) => {
-				resolve(user ? user : { name: 'Author', email: 'email@author.com' })
+				resolve(user || { name: 'Author', email: 'email@author.com' })
 			})
 		})
 	}
