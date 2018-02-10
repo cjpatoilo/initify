@@ -139,6 +139,7 @@ async function initify () {
 			.replace('[year]', config.year)
 			.replace('[fullname]', config.fullname)
 			.replace('[email]', config.email)
+			.replace('[directory]', config.directory)
 			.replace('[description]', config.description)
 	}
 
