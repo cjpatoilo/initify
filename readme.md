@@ -1,6 +1,6 @@
 <a align="center" href="https://cjpatoilo.com/initify"><img width="100%" src="https://cjpatoilo.com/initify/images/thumbnail.png" alt="The easy way to start open source projects."></a>
 
-> The easy way to start open source projects.
+> The easy way to start Open Source projects.
 
 [![Travis Status](https://travis-ci.org/cjpatoilo/initify.svg?branch=master)](https://travis-ci.org/cjpatoilo/initify?branch=master)
 [![AppVeyor Status](https://ci.appveyor.com/api/projects/status/yd5ohn9syy91fk7l?svg=true)](https://ci.appveyor.com/project/cjpatoilo/initify)
@@ -13,7 +13,7 @@
 
 ## Why it's awesome
 
-Initify is the easy way to start open source projects. Hope you enjoy!
+Initify is a CLI made in Node.js to start Open Source projects – easy as cake!
 
 
 ## Install
