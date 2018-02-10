@@ -1,6 +1,6 @@
 # Contributing
 
-We would love for you to contribute and help us make this even better! Start reading [this document](.github/contributing.md) to see it is not difficult as you might have imagined.
+We would love for you to contribute and help us make this even better! Start reading [this document](contributing.md) to see it is not difficult as you might have imagined.
 
 ## Table of Contents
 
@@ -13,7 +13,7 @@ We would love for you to contribute and help us make this even better! Start rea
 
 ## Open an Issue
 
-[Open an Issue](/issues/new) to report any problems or improvements. When necessary, use some online service like [JS Bin](https://jsbin.com), [JSFiddle](https://jsfiddle.net/), [Codepen](http://codepen.io/), to show the problem. Be sure to include some description to explain the problem.
+[Open an Issue](../../../issues/new) to report any problems or improvements. When necessary, use some online service like [JS Bin](https://jsbin.com), [JSFiddle](https://jsfiddle.net/), [Codepen](http://codepen.io/), to show the problem. Be sure to include some description to explain the problem.
 
 ## Submit a Pull Request
 
