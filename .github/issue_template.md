@@ -1,7 +1,7 @@
 <!--
 # Contributing
 
-We would love for you to contribute and help us make this even better! Start reading [this document](.github/contributing.md) to see it is not difficult as you might have imagined.
+We would love for you to contribute and help us make this even better! Start reading [this document](contributing.md) to see it is not difficult as you might have imagined.
 
 ## Code of Conduct
 
