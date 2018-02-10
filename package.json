@@ -1,7 +1,7 @@
 {
 	"name": "initify",
 	"version": "0.0.10",
-	"description": "The easy way to start open source projects.",
+	"description": "The easy way to start Open Source projects.",
 	"homepage": "https://cjpatoilo.com/initify",
 	"repository": "cjpatoilo/initify",
 	"license": "MIT",
@@ -23,6 +23,7 @@
 	],
 	"dependencies": {
 		"fs-extra": "^5.0.0",
+		"gitconfig": "^2.0.3",
 		"rasper": "*"
 	},
 	"devDependencies": {
