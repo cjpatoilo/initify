@@ -14,7 +14,10 @@ async function initify () {
 	const options = process.argv[0].match(/node/i) ? rasper(process.argv.slice(2)) : rasper()
 	const directory = options._[0]
 	const config = await getConfig(directory)
-	const info = `
+
+	// help
+	if (options.h || options.help) {
+		log(`
 	Usage:
 
 	  $ initify <directory> [<options>]
@@ -42,18 +45,14 @@ async function initify () {
 	Default settings when no arguments:
 
 	  $ initify <directory> --license mit --ignore node --ci travis,appveyor
-	`
+		`)
+		process.exit(2)
+	}
 
 	// version
 	if (options.v || options.version) {
 		log(`v${version}`)
-		process.exit(1)
-	}
-
-	// help
-	if (options.h || options.help) {
-		log(info)
-		process.exit(1)
+		process.exit(2)
 	}
 
 	// has directory
