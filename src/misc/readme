@@ -22,7 +22,7 @@ $ npm install [directory]
 $ yarn add [directory]
 ```
 
-Run with npx (without installing!):
+**Run with npx (without installing!)**
 
 ```sh
 npx [directory]
