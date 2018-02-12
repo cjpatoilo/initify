@@ -12,112 +12,112 @@ if (require.main === module) initify()
 
 async function initify () {
 	const options = process.argv[0].match(/node/i) ? rasper(process.argv.slice(2)) : rasper()
-	const directory = options._[0]
-	const config = await getConfig(directory)
-	const info = `
-	Usage:
-
-	  $ initify <directory> [<options>]
-
-	Options:
-
-	  -h, --help              Display help information
-	  -v, --version           Output Initify version
-	  -l, --license           Get license
-	  -i, --ignore            Get .gitignore
-	  -c, --ci                Get continuous integration
-	  --no-license            Disallow license
-	  --no-ignore             Disallow .gitignore
-	  --no-ci                 Disallow continuous integration
-	  --no-template           Disallow Github templates
-	  --no-editor             Disallow .editorconfig
-	  --no-readme             Disallow readme.md
-
-	Examples:
-
-	  $ initify my-app
-	  $ initify my-app --ignore macos,node,grunt,test
-	  $ initify my-app --license apache-2.0
-
-	Default settings when no arguments:
-
-	  $ initify <directory> --license mit --ignore node --ci travis,appveyor
-	`
-
-	// version
-	if (options.v || options.version) {
-		log(`v${version}`)
-		process.exit(1)
-	}
+	const config = await getConfig(options)
 
 	// help
-	if (options.h || options.help) {
-		log(info)
-		process.exit(1)
+	if (config.help) {
+		log(`
+Usage:
+
+  $ initify <directory> [<options>]
+
+Options:
+
+  -h, --help              Display help information
+  -v, --version           Output Initify version
+  -a, --author            Set author
+  -e, --email             Set email
+  -d, --description       Set description
+  -l, --license           Get license
+  -i, --ignore            Get .gitignore
+  -c, --ci                Get continuous integration
+  --no-license            Disallow license
+  --no-ignore             Disallow .gitignore
+  --no-ci                 Disallow continuous integration
+  --no-template           Disallow Github templates
+  --no-editor             Disallow .editorconfig
+  --no-readme             Disallow readme.md
+
+Examples:
+
+  $ initify my-app
+  $ initify my-app --ignore macos,node,grunt,test
+  $ initify my-app --license apache-2.0
+
+Default settings when no arguments:
+
+  $ initify <directory> --license mit --ignore node --ci travis,appveyor
+		`)
+		process.exit(2)
+	}
+
+	// version
+	if (config.version) {
+		log(`v${version}`)
+		process.exit(2)
 	}
 
 	// has directory
-	if (existsSync(directory)) {
+	if (existsSync(config.directory)) {
 		error('[error] Directory exists')
 		process.exit(2)
 	}
 
 	// No directory
-	if (!directory) {
+	if (!config.directory) {
 		error('[error] Directory is required')
 		process.exit(2)
 	}
 
 	// package.json
-	exec(`mkdir ${directory} && cd ${directory} && npm init -y`, err => {
-		const file = `${directory}/package.json`
+	exec(`mkdir ${config.directory} && cd ${config.directory} && npm init -y`, err => {
+		const file = `${config.directory}/package.json`
 		err ? error(`[error] Error ${file}`) : readJson(file, create)
 	})
 
 	// index.js
-	exec(`touch ${directory}/index.js`, err => {
-		err ? error(`[error] Error ${directory}/index.js`) : log(`[info] Creating ${directory}/index.js`)
+	exec(`touch ${config.directory}/index.js`, err => {
+		err ? error(`[error] Error ${config.directory}/index.js`) : log(`[info] Creating ${config.directory}/index.js`)
 	})
 
 	// readme.md
-	if (!options.noreadme) request('misc/readme', 'readme.md')
+	if (!config.noreadme) request('misc/readme', 'readme.md')
 
 	// license
-	if (options.l || options.license) request(`license/${options.license}`, 'license')
-	else if (!options.nolicense) request('license/mit', 'license')
+	if (!config.nolicense) request('license/mit', 'license')
+	else if (config.license) request(`license/${config.license}`, 'license')
 
 	// .gitignore
-	if (options.i || options.ignore) request(options.ignore, '.gitignore')
-	else if (!options.noignore) request('node', '.gitignore')
+	if (!config.noignore) request('node', '.gitignore')
+	else if (config.ignore) request(config.ignore, '.gitignore')
 
 	// continus integration
-	if (options.c || options.ci) request(`ci/${options.ci}`, `.${options.ci}.yml`)
-	else if (!options.noci) {
+	if (!config.noci) {
 		request('ci/appveyor', '.appveyor.yml')
 		request('ci/travis', '.travis.yml')
-	}
+	} else if (config.ci) request(`ci/${config.ci}`, `.${config.ci}.yml`)
 
 	// github template
-	if (!options.notemplate) {
+	if (!config.notemplate) {
 		request('github/contributing', '.github/contributing.md')
 		request('github/issue_template', '.github/issue_template.md')
 		request('github/pull_request_template', '.github/pull_request_template.md')
 	}
 
 	// .editorconfig
-	if (!options.noeditor) request('misc/editorconfig', '.editorconfig')
+	if (!config.noeditor) request('misc/editorconfig', '.editorconfig')
 
 	function create (error, data) {
-		const file = `${directory}/package.json`
+		const file = `${config.directory}/package.json`
 		data.version = '0.0.0'
-		data.license = (options.license || options.l) ? options.license.toUpperCase() : 'MIT'
-		data.author = config.fullname + ' (' + config.email + ')'
+		data.license = config.license ? config.license.toUpperCase() : 'MIT'
+		data.author = config.fullname + ' <' + config.email + '>'
 
 		writeJson(file, data, { spaces: '\t' }, err => err ? error(`[error] Error ${file}`) : log(`[info] Creating ${file}`))
 	}
 
 	function request (url, file) {
-		get(normalize(url, file), res => res.on('data', data => write(`${directory}/${file}`, data)))
+		get(normalize(url, file), res => res.on('data', data => write(`${config.directory}/${file}`, data)))
 	}
 
 	function normalize (url, file) {
@@ -136,23 +136,33 @@ async function initify () {
 	function update (data) {
 		return data
 			.toString('utf8')
-			.replace('[year]', config.year)
-			.replace('[fullname]', config.fullname)
-			.replace('[email]', config.email)
-			.replace('[directory]', config.directory)
-			.replace('[description]', config.description)
+			.replaceAll('[year]', config.year || '[year]')
+			.replaceAll('[fullname]', config.fullname || '[fullname]')
+			.replaceAll('[email]', config.email || '[email]')
+			.replaceAll('[directory]', config.directory || '[directory]')
+			.replaceAll('[description]', config.description || '[description]')
 	}
 
-	function getConfig (directory) {
-		const defaultName = 'Author'
-		const defaultEmail = 'email@author.com'
-		const description = 'Lorem ipsum'
+	function getConfig (options) {
+		const version = options.v || options.version
+		const help = options.h || options.help
+		const license = options.l || options.license
+		const ignore = options.i || options.ignore
+		const ci = options.c || options.ci
+		const description = options.description
+		const directory = options._[0]
 		const year = (new Date()).getFullYear()
 
 		return new Promise(resolve => {
-			gitconfig.get().then(({ user: { email, name } }) => {
-				resolve({ directory, year, description, fullname: name || defaultName, email: email || defaultEmail })
+			gitconfig.get().then(({ user: { email = options.email, name = options.author } }) => {
+				resolve({ ...options, version, help, license, ignore, ci, directory, year, description, email, fullname: name })
 			})
 		})
+	}
+
+	/* eslint-disable */
+	String.prototype.replaceAll = function (find, replace) {
+		const target = this
+		return target.replace(new RegExp(find.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1'), 'g'), replace)
 	}
 }

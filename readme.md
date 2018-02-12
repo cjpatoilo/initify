@@ -48,6 +48,9 @@ $ npx initify
 
 		-h, --help              Display help information
 		-v, --version           Output Initify version
+		-a, --author            Set author
+		-e, --email             Set email
+		-d, --description       Set description
 		-l, --license           Get license
 		-i, --ignore            Get .gitignore
 		-c, --ci                Get continuous integration
@@ -72,7 +75,7 @@ $ npx initify
 
 ## Contributing
 
-Want to contribute? Follow these [recommendations](https://github.com/cjpatoilo/initify/blob/master/.github/contributing.md).
+Want to contribute? Follow these [recommendations](.github/contributing.md).
 
 
 ## License
