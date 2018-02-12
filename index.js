@@ -135,11 +135,11 @@ async function initify () {
 	function update (data) {
 		return data
 			.toString('utf8')
-			.replace('[year]', config.year)
-			.replace('[fullname]', config.fullname)
-			.replace('[email]', config.email)
-			.replace('[directory]', config.directory)
-			.replace('[description]', config.description)
+			.replaceAll('[year]', config.year || '[year]')
+			.replaceAll('[fullname]', config.fullname || '[fullname]')
+			.replaceAll('[email]', config.email || '[email]')
+			.replaceAll('[directory]', config.directory || '[directory]')
+			.replaceAll('[description]', config.description || '[description]')
 	}
 
 	function getConfig (directory) {
@@ -153,5 +153,11 @@ async function initify () {
 				resolve({ directory, year, description, fullname: name || defaultName, email: email || defaultEmail })
 			})
 		})
+	}
+
+	/* eslint-disable */
+	String.prototype.replaceAll = function (find, replace) {
+		const target = this
+		return target.replace(new RegExp(find.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1'), 'g'), replace)
 	}
 }
