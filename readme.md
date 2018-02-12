@@ -72,7 +72,7 @@ $ npx initify
 
 ## Contributing
 
-Want to contribute? Follow these [recommendations](https://github.com/cjpatoilo/initify/blob/master/.github/contributing.md).
+Want to contribute? Follow these [recommendations](.github/contributing.md).
 
 
 ## License
