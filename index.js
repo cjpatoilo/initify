@@ -84,18 +84,13 @@ Default settings when no arguments:
 	if (!config.noreadme) request('misc/readme', 'readme.md')
 
 	// license
-	if (!config.nolicense) request('license/mit', 'license')
-	else if (config.license) request(`license/${config.license}`, 'license')
+	if (!config.nolicense && config.license) request(`license/${config.license}`, 'license')
 
 	// .gitignore
-	if (!config.noignore) request('node', '.gitignore')
-	else if (config.ignore) request(config.ignore, '.gitignore')
+	if (!config.noignore && config.ignore) request(config.ignore, '.gitignore')
 
 	// continus integration
-	if (!config.noci) {
-		request('ci/appveyor', '.appveyor.yml')
-		request('ci/travis', '.travis.yml')
-	} else if (config.ci) request(`ci/${config.ci}`, `.${config.ci}.yml`)
+	if (!config.noci && config.ci) config.ci.map(ci => request(`ci/${ci}`, `.${ci}.yml`))
 
 	// github template
 	if (!config.notemplate) {
@@ -141,14 +136,20 @@ Default settings when no arguments:
 			.replaceAll('[email]', config.email || '[email]')
 			.replaceAll('[directory]', config.directory || '[directory]')
 			.replaceAll('[description]', config.description || '[description]')
+			.replaceAll('[license]', config.license || '[license]')
+	}
+
+	function normalizeCI (value) {
+		if (value.match(/,/)) return value.split(',')
+		return [value]
 	}
 
 	function getConfig (options) {
 		const version = options.v || options.version
 		const help = options.h || options.help
-		const license = options.l || options.license
-		const ignore = options.i || options.ignore
-		const ci = options.c || options.ci
+		const license = options.l || options.license || 'mit'
+		const ignore = options.i || options.ignore || 'node'
+		const ci = normalizeCI(options.c || options.ci || 'travis,appveyor')
 		const description = options.description
 		const directory = options._[0]
 		const year = (new Date()).getFullYear()

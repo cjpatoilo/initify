@@ -1,6 +1,6 @@
 {
 	"name": "initify",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"description": "The easy way to start Open Source projects.",
 	"homepage": "https://cjpatoilo.com/initify",
 	"repository": "cjpatoilo/initify",
@@ -24,7 +24,7 @@
 	"dependencies": {
 		"fs-extra": "^5.0.0",
 		"gitconfig": "^2.0.3",
-		"rasper": "*"
+		"rasper": "latest"
 	},
 	"devDependencies": {
 		"ava": "^0.25.0",
