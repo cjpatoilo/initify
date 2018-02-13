@@ -136,6 +136,7 @@ Default settings when no arguments:
 			.replaceAll('[email]', config.email || '[email]')
 			.replaceAll('[directory]', config.directory || '[directory]')
 			.replaceAll('[description]', config.description || '[description]')
+			.replaceAll('[license]', config.license || '[license]')
 	}
 
 	function normalizeCI (value) {
