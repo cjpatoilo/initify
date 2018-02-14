@@ -1,6 +1,6 @@
-<a align="center" href="https://cjpatoilo.com/initify"><img width="100%" src="https://cjpatoilo.com/initify/images/thumbnail.png" alt="The easy way to start open source projects."></a>
+<a align="center" href="https://cjpatoilo.com/initify"><img width="100%" src="https://cjpatoilo.com/initify/images/thumbnail.png" alt="A meaningful Open Source Boilerplate – easy as cake!"></a>
 
-> The easy way to start Open Source projects.
+> A meaningful Open Source Boilerplate – easy as cake!
 
 [![Travis Status](https://travis-ci.org/cjpatoilo/initify.svg?branch=master)](https://travis-ci.org/cjpatoilo/initify?branch=master)
 [![AppVeyor Status](https://ci.appveyor.com/api/projects/status/yd5ohn9syy91fk7l?svg=true)](https://ci.appveyor.com/project/cjpatoilo/initify)
@@ -13,7 +13,16 @@
 
 ## Why it's awesome
 
-Initify is a CLI made in Node.js to start Open Source projects – easy as cake!
+Starting an Open Source project made ease. Initify is a work-in-progress project by [CJ Patoilo](https://twitter.com/cjpatoilo) that brings essential information to build professional Open Source projects. Note that there is no cake recipe, there is no right or wrong way or the BEST way, but there are some basic recommendation:
+
+- **README** ease to read
+- Choose an open source **license**
+- Create useful **.gitignore** files
+- **Github Templates**
+- **Continuous Integration** support
+- **EditorConfig** available
+
+..these and many more, all available in Initify, so stay tuned. Hope you enjoy!
 
 
 ## Install
@@ -27,7 +36,7 @@ $ npm i -g initify
 **Install with Yarn**
 
 ```sh
-$ yarn add initify
+$ yarn global add initify
 ```
 
 **Run with npx (without installing!)**
@@ -80,4 +89,4 @@ Want to contribute? Follow these [recommendations](.github/contributing.md).
 
 ## License
 
-Designed with ♥ by [CJ Patoilo](https://twitter.com/cjpatoilo). Licensed under the [MIT License](http://cjpatoilo.mit-license.org).
+Designed with ♥ by [CJ Patoilo](https://twitter.com/cjpatoilo). Licensed under the [MIT License](license).
