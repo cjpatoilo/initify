@@ -1,4 +1,4 @@
-<a align="center" href="https://cjpatoilo.com/initify"><img width="100%" src="https://cjpatoilo.com/initify/images/thumbnail.png" alt="A meaningful Open Source Boilerplate – easy as cake!"></a>
+<a align="center" href="https://cjpatoilo.com/initify"><img width="100%" src="https://cjpatoilo.com/initify/artwork.png" alt="A meaningful Open Source Boilerplate – easy as cake!"></a>
 
 > A meaningful Open Source Boilerplate – easy as cake!
 
