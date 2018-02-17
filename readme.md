@@ -1,6 +1,6 @@
 <a align="center" href="https://cjpatoilo.com/initify"><img width="100%" src="https://cjpatoilo.com/initify/artwork.png" alt="A meaningful Open Source Boilerplate – easy as cake!"></a>
 
-> A meaningful Open Source Boilerplate – easy as cake!
+> A meaningful Open Source Boilerplate – it's a piece of cake!
 
 [![Travis Status](https://travis-ci.org/cjpatoilo/initify.svg?branch=master)](https://travis-ci.org/cjpatoilo/initify?branch=master)
 [![AppVeyor Status](https://ci.appveyor.com/api/projects/status/yd5ohn9syy91fk7l?svg=true)](https://ci.appveyor.com/project/cjpatoilo/initify)
@@ -13,16 +13,16 @@
 
 ## Why it's awesome
 
-Starting an Open Source project made ease. Initify is a work-in-progress project by [CJ Patoilo](https://twitter.com/cjpatoilo) that brings essential information to build professional Open Source projects. Note that there is no cake recipe, there is no right or wrong way or the BEST way, but there are some basic recommendation:
+Starting an Open Source project with ease. Initify is a work-in-progress project by [CJ Patoilo](https://twitter.com/cjpatoilo) that brings essential information to build professional Open Source projects. Note that there is no cake recipe, there is no right or wrong way or the BEST way, but there are some basic recommendation:
 
-- **README** ease to read
-- Choose an open source **license**
-- Create useful **.gitignore** files
+- A **README** easy to read
+- The option for an open source **license**
+- Useful **.gitignore** files
 - **Github Templates**
 - **Continuous Integration** support
 - **EditorConfig** available
 
-..these and many more, all available in Initify, so stay tuned. Hope you enjoy!
+...these and many more are available in Initify, so stay tuned. Hope you enjoy!
 
 
 ## Install
@@ -39,7 +39,7 @@ $ npm i -g initify
 $ yarn global add initify
 ```
 
-**Run with npx (without installing!)**
+**Run with npx (without installing)**
 
 ```sh
 $ npx initify
@@ -76,7 +76,7 @@ $ npx initify
 		$ initify my-app --ignore macos,node,grunt,test
 		$ initify my-app --license apache-2.0
 
-	Default settings when no arguments:
+	Default settings with no arguments:
 
 		$ initify <directory> --license mit --ignore node --ci travis,appveyor
 ```
