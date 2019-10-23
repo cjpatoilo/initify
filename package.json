@@ -1,11 +1,12 @@
 {
 	"name": "initify",
-	"version": "0.2.4",
+	"version": "0.2.5",
 	"description": "A meaningful Open Source Boilerplate – easy as cake!",
 	"homepage": "https://cjpatoilo.com/initify",
 	"repository": "cjpatoilo/initify",
 	"license": "MIT",
 	"author": "CJ Patoilo <cjpatoilo@gmail.com>",
+	"private": false,
 	"bin": "index.js",
 	"keywords": [
 		"boilerplate",
@@ -23,27 +24,43 @@
 		".travis.yml"
 	],
 	"dependencies": {
-		"fs-extra": "^5.0.0",
-		"gitconfig": "^2.0.3",
+		"fs-extra": "^8.1.0",
+		"gitconfig": "^2.0.8",
 		"rasper": "latest"
 	},
 	"devDependencies": {
-		"ava": "^0.25.0",
+		"ava": "^2.4.0",
 		"boeing": "latest",
-		"editorconfig-tools": "^0.1.1",
-		"eslint": "^4.17.0",
-		"eslint-config-styled": "0.0.2",
-		"husky": "^0.14.3",
+		"husky": "^3.0.9",
+		"inject-ga": "^0.2.4",
+		"lint-staged": "^9.4.2",
 		"marshmallow": "latest",
-		"nyc": "^11.4.1",
-		"rimraf": "^2.6.2"
-	},
-	"engines": {
-		"node": ">=6"
+		"nyc": "^14.1.1",
+		"prettier-standard": "^15.0.1",
+		"rimraf": "^3.0.0"
 	},
 	"scripts": {
-		"prepush": "marshmallow -o docs -i artwork.psd -f -m && boeing docs && rimraf docs",
-		"precommit": "npm t",
-		"test": "nyc ava && eslint . -c styled --ignore-path .gitignore && editorconfig-tools check ."
+		"deploy": "marshmallow -o docs -i artwork.psd -f -m && inject-ga docs/index.html -o docs/index.html -c 'UA-24389952-13' && boeing docs && rimraf docs",
+		"lint": "prettier-standard --check",
+		"test": "nyc ava."
+	},
+	"engines": {
+		"node": "^12.13.0"
+	},
+	"prettier": {
+		"jsxSingleQuote": false,
+		"trailingComma": "all"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged",
+			"pre-push": "npm run deploy"
+		}
+	},
+	"lint-staged": {
+		"src/**/*": [
+			"prettier-standard --format",
+			"git add"
+		]
 	}
 }

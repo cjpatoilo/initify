@@ -136,7 +136,7 @@ Default settings when no arguments:
 			.replaceAll('[email]', config.email || '[email]')
 			.replaceAll('[directory]', config.directory || '[directory]')
 			.replaceAll('[description]', config.description || '[description]')
-			.replaceAll('[license]', config.license || '[license]')
+			.replaceAll('[license]', config.license.toUpperCase() || '[license]')
 	}
 
 	function normalizeCI (value) {
@@ -150,13 +150,15 @@ Default settings when no arguments:
 		const license = options.l || options.license || 'mit'
 		const ignore = options.i || options.ignore || 'node'
 		const ci = normalizeCI(options.c || options.ci || 'travis,appveyor')
+		const author = options.author || options.a
+		const emailDefault = options.email || options.e
 		const description = options.description
 		const directory = options._[0]
 		const year = (new Date()).getFullYear()
 
 		return new Promise(resolve => {
-			gitconfig.get().then(({ user: { email = options.email, name = options.author } }) => {
-				resolve({ ...options, version, help, license, ignore, ci, directory, year, description, email, fullname: name })
+			gitconfig.get().then(({ user: { email, name } }) => {
+				resolve({ ...options, version, help, license, ignore, ci, directory, year, description, email: emailDefault || email, fullname: author || name })
 			})
 		})
 	}

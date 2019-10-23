@@ -1,4 +1,4 @@
-<a align="center" href="https://cjpatoilo.com/initify"><img width="100%" src="https://cjpatoilo.com/initify/artwork.png" alt="A meaningful Open Source Boilerplate – easy as cake!"></a>
+<a href="https://cjpatoilo.com/initify"><img width="100%" src="https://cjpatoilo.com/initify/artwork.png" alt="A meaningful Open Source Boilerplate – easy as cake!"></a>
 
 > A meaningful Open Source Boilerplate – it's a piece of cake!
 
@@ -84,9 +84,9 @@ $ npx initify
 
 ## Contributing
 
-Want to contribute? Follow these [recommendations](.github/contributing.md).
+Want to contribute? Follow these [recommendations](https://github.com/cjpatoilo/initify#contributing.md).
 
 
 ## License
 
-Designed with ♥ by [CJ Patoilo](https://twitter.com/cjpatoilo). Licensed under the [MIT License](license).
+Designed with ♥ by [CJ Patoilo](https://twitter.com/cjpatoilo). Licensed under the [MIT License](https://github.com/cjpatoilo/initify#license).
